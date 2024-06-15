@@ -5,6 +5,7 @@ extends Node
 var socket := WebSocketPeer.new()
 
 signal on_warm_egg
+signal on_cool_egg
 
 func _ready():
 	if socket.connect_to_url(websocket_url) != OK:
@@ -20,6 +21,8 @@ func _process(_delta):
 			var message = socket.get_packet().get_string_from_ascii()
 			if(message == 'WARM_EGG'):
 				on_warm_egg.emit()
+			elif(message == 'COOL_EGG'):
+				on_cool_egg.emit()
 
 func _exit_tree():
 	socket.close()
